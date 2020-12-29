@@ -41,22 +41,37 @@ tb=`ls ./Databases/$dbname | wc -l`
 #Operations on Specific datbase
 echo "==================================================================================="
 echo "Please Enter the choice you want to do in this Database From the Following Choices *"
-select choice in "Insert Into Table" "Delete From Table" "Update Into Table"  "Back To Main Menu" "Exit the Application"
-do
-    case $REPLY in
-    1) . ./InsertIntoTable.sh
+PS3="Enter Your Choice:~$ "
+if [ ! "$tb" == 0 ]
+then
+        select choice in "Insert Into Table" "Delete From Table" "Update Into Table" "Back To Main Menu" "Exit the Application"
+        do
+        case $REPLY in
+        1) . ./InsertIntoTable.sh
+                ;;
+        2) . ./DeleteFromTable.sh
+                ;;
+        3) . ./UpdateRecord.sh 
             ;;
-    2) . ./DeleteFromTable.sh
-            ;;
-    3) . ./UpdateIntoTable.sh
-            ;;
-    4) . ./MainMenu.sh
-            ;;
-    5)    exit
-            ;;
-    *)  echo "Invalid Selection 😱 Please Try again...!"
-            ;;
-    esac
-done
-
+        4) . ./MainMenu.sh
+                ;;
+        5)    exit
+                ;;
+        *)  echo "Invalid Selection  Please Try again...!"
+                ;;
+        esac
+    done
+else
+     select choice in "Back To Main Menu" "Exit the Application" 
+      do
+          case $REPLY in
+            1). ./MainMenu.sh
+                  ;;
+            2) exit
+                  ;;
+            *) echo "Invalid Selection * Please Try again...!"
+                  ;;
+          esac
+      done
+fi    
 

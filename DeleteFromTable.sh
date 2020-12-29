@@ -51,20 +51,22 @@ then
   echo "======================================================================="
   echo "please select your next action from the following actions"
   PS3="Enter Your Choice:~$ "
-    select choice in "Delete another Record" "Add New Record" "Back To Another Table" "Back To Another Database" "Back To Main Menu" "Exit the Application" 
+    select choice in "Delete another Record" "Add New Record" "Update Into Table" "Back To Another Table" "Back To Another Database" "Back To Main Menu" "Exit the Application" 
     do
        case $REPLY in
         1). ./DeleteFromTable.sh
           ;;
         2). ./InsertIntoTable.sh
           ;;
-        3). ./ListSpecificTable.sh
+        3) . ./UpdateRecord.sh 
+         ;;  
+        4). ./ListSpecificTable.sh
           ;;
-        4). ./OpenDatabase.sh
+        5). ./OpenDatabase.sh
           ;;
-        5). ./MainMenu.sh
+        6). ./MainMenu.sh
           ;;
-        6) exit
+        7) exit
           ;;
         *) echo "Invalid Selection 😱 Please Try again...!"
           ;;
