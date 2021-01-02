@@ -74,16 +74,20 @@ do
             #input the data of other columns
             while [ $counter -lt $nocoulms ]
             do
-               echo "Please Enter the Name of coulmn Number $(( $counter+1 )) "
-               read columnname
-                         
-               if [[ ! "$columnname" =~  ^[[:alpha:]][[:alnum:]]*$  ]] 
-               then
-                  echo Error in Naming Format of Column name 
-                  #function to write the requird format 
-                  name_format_check 
-               fi  
- 
+              while true
+              do
+                  echo "Please Enter the Name of coulmn Number $(( $counter+1 )) "
+                  read columnname
+                           
+                  if [[ ! "$columnname" =~  ^[[:alpha:]][[:alnum:]]*$  ]] 
+                  then
+                     echo Error in Naming Format of Column name 
+                     #function to write the requird format 
+                     name_format_check 
+                  else
+                        break
+                  fi  
+               done
                  #check if the input column name is exist or not
                  coulmnNameFound=0
                   for var in `echo ${column[@]} $PKName`

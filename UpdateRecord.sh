@@ -18,15 +18,10 @@ else
     do
        echo  "Enter the value of primary key of the row you want to modify"
         read val_prim
-       typeset -i  val_prim
        ((new_tb=tb-2))
-       if [ -z $val_prim ]
-        then
-            echo Primary Key Cannot be Null
- 
-        elif [[ ! "$val_prim" =~  ^[1-9][0-9]*$  ]]
-        then
-            echo "please enter valid number"
+       if [[ ! "$val_prim" =~  ^[1-9][0-9]*$ ]]
+       then
+           echo "please enter valid number "
         elif [[ $val_prim -gt $new_tb ]]  
         then
             echo "this primary key not exist"      
@@ -35,35 +30,31 @@ else
         fi
     done
 
+#list all columns to choose
+    typeset -i ci=2
+    for col in `awk -F: '{i=2; while(i<=NF){if(NR==2){print $i};i++}}' ./Databases/$dbname/$tablename`
+    do
+    echo $ci ")" $col
+    arr[ci]=$ci
+    ci=ci+1
+    done
+
     while true
     do
        echo  "Choose Column Need To Update "
-
-       typeset -i ci=2
-        for col in `awk -F: '{i=2; while(i<=NF){if(NR==2){print $i};i++}}' ./Databases/$dbname/$tablename`
-        do
-        echo $ci ")" $col
-        arr[ci]=$ci
-        ci=ci+1
-        done
         read option
 
-#check option exist in array
+        #check option exist in array
         found=0
         for var in `echo ${arr[@]}`
         do
-            if [ $var == $option ]
+            if [ "$var" == "$option" ]
             then
                 found=1  
             fi
         done
 
-        typeset -i  option
-        if [ -z $option ]
-        then
-            echo Choosen Number Cannot be Null
-
-        elif [[ ! $option =~  ^[1-9][0-9]*$  ]]
+        if [[ ! $option =~  ^[1-9][0-9]*$  ]]
         then
                 echo "please enter valid number"
         elif [ $found == 0 ]
@@ -74,7 +65,7 @@ else
         fi
     done
 
-#get type of option selected 
+   #get type of option selected 
     type_select=`awk -F: -v i=$option '{if(NR==1){print $i}}' ./Databases/$dbname/$tablename`
     echo "type:"$type_select         
  
@@ -113,7 +104,6 @@ else
         fi   
     done
         awk -F : -i inplace -v OFS=: -v ident="$val_prim" -v insert="$new" -v op="$option" '($1==ident){$op=insert} 1' ./Databases/$dbname/$tablename
-        #awk -F : -i inplace -v OFS=: -v ident="2" -v insert="4" -v op="2" '($1==ident){$op=insert} 1' ./Databases/db1/tb1
         echo "congratulations, Your Have Updated Record Successfully "
 
         echo "new data after update"
@@ -127,7 +117,7 @@ echo "please select your next action from the following actions"
 PS3="Enter Your Choice:~$ "
 if [ ! $tb == 2 ]
 then
-    select choice in  "Insert Into Table" "Delete From Table" "Update Another Record" "Back To Main Menu" "Exit the Application" 
+    select choice in "Update Another Record" "Insert Into Table" "Delete From Table" "Back" "Back To Main Menu" "Exit the Application" 
     do
     case $REPLY in
         1) . ./UpdateRecord.sh 
@@ -136,9 +126,11 @@ then
         ;;
         3) . ./DeleteFromTable.sh
         ;;
-        4). ./MainMenu.sh
+        4). ./ListSpecificTable.sh yes
+          ;;  
+        5). ./MainMenu.sh
         ;;
-        5) exit
+        6) exit
         ;;
         *) echo "Invalid Selection * Please Try again...!"
         ;;
