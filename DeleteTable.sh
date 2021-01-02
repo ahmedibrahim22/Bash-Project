@@ -44,14 +44,14 @@ echo "please select your next action from the following actions"
 PS3="Enter Your Choice:~$ "
 if [ ! "$tb" == 0 ]
 then
-     select choice in "Delete another Table" "Back To Main Menu" "Back to another Database" "Exit the Application" 
+     select choice in "Delete another Table" "Back" "Back To Main Menu" "Exit the Application" 
       do
           case $REPLY in
             1). ./DeleteTable.sh
                   ;;
-            2). ./MainMenu.sh
+            2). ./OpenDatabase.sh yes
                   ;;
-            3). ./OpenDatabase.sh
+            2). ./MainMenu.sh  
                   ;;
             4) exit
                   ;;
@@ -60,13 +60,13 @@ then
           esac
       done
 else
-     select choice in "Back To Main Menu" "Back to another Database" "Exit the Application" 
+     select choice in "Back" "Back To Main Menu" "Exit the Application" 
       do
           case $REPLY in
-            1). ./MainMenu.sh
-                  ;;
-            2). ./OpenDatabase.sh
-                  ;;
+            1). ./OpenDatabase.sh yes
+                  ;;    
+            2). ./MainMenu.sh  
+                  ;;      
             3) exit
                   ;;
             *) echo "Invalid Selection 😱 Please Try again...!"

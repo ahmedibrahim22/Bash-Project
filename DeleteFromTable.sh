@@ -51,7 +51,7 @@ then
   echo "======================================================================="
   echo "please select your next action from the following actions"
   PS3="Enter Your Choice:~$ "
-    select choice in "Delete another Record" "Add New Record" "Update Into Table" "Back To Another Table" "Back To Another Database" "Back To Main Menu" "Exit the Application" 
+    select choice in "Delete another Record" "Add New Record" "Update Into Table" "Back" "Back To Main Menu" "Exit the Application" 
     do
        case $REPLY in
         1). ./DeleteFromTable.sh
@@ -59,14 +59,12 @@ then
         2). ./InsertIntoTable.sh
           ;;
         3) . ./UpdateRecord.sh 
-         ;;  
-        4). ./ListSpecificTable.sh
+         ;; 
+        4). ./ListSpecificTable.sh yes
+          ;;  
+        5). ./MainMenu.sh
           ;;
-        5). ./OpenDatabase.sh
-          ;;
-        6). ./MainMenu.sh
-          ;;
-        7) exit
+        6) exit
           ;;
         *) echo "Invalid Selection 😱 Please Try again...!"
           ;;
@@ -76,18 +74,16 @@ then
 else
  echo "please select your next action from the following actions"
     PS3="Enter Your Choice:~$ "
-    select choice in "Back To Another Table" "Add New Record" "Back To Another Database" "Back To Main Menu" "Exit the Application" 
+    select choice in "Add New Record" "Back" "Back To Main Menu" "Exit the Application" 
     do
        case $REPLY in
-        1). ./ListSpecificTable.sh
+        1). ./InsertIntoTable.sh
           ;;
-        2). ./InsertIntoTable.sh
+        2). ./ListSpecificTable.sh yes
+          ;;  
+        3). ./MainMenu.sh
           ;;
-        3). ./OpenDatabase.sh
-          ;;
-        4). ./MainMenu.sh
-          ;;
-        5) exit
+        4) exit
           ;;
         *) echo "Invalid Selection 😱 Please Try again...!"
           ;;

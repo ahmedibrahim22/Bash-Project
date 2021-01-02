@@ -18,14 +18,16 @@ fi
 echo "==========================================================="
 echo "please select your next action from the following actions"
 PS3="Enter Your Choice:~$ "
-select choice in "Back To Main Menu" "Exit the Application"
-do
-   case $REPLY in
-    1). ./MainMenu.sh
-       ;;
-    2) exit
-       ;;
-    *) echo "Invalid Selection 😱 Please Try again...!"
-       ;;
-    esac
-done
+select choice in "Back" "Back To Main Menu" "Exit the Application" 
+   do
+         case $REPLY in
+         1). ./OpenDatabase.sh yes
+               ;;
+         2). ./MainMenu.sh
+               ;;      
+         3) exit
+               ;;
+         *) echo "Invalid Selection 😱 Please Try again...!"
+               ;;
+         esac
+   done

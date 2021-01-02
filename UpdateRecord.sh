@@ -127,7 +127,7 @@ echo "please select your next action from the following actions"
 PS3="Enter Your Choice:~$ "
 if [ ! $tb == 2 ]
 then
-    select choice in  "Insert Into Table" "Delete From Table" "Update Another Record" "Back To Main Menu" "Back to another Database" "Exit the Application" 
+    select choice in  "Insert Into Table" "Delete From Table" "Update Another Record" "Back To Main Menu" "Exit the Application" 
     do
     case $REPLY in
         1) . ./UpdateRecord.sh 
@@ -138,27 +138,23 @@ then
         ;;
         4). ./MainMenu.sh
         ;;
-        5). ./OpenDatabase.sh
-        ;;
-        6) exit
+        5) exit
         ;;
         *) echo "Invalid Selection * Please Try again...!"
         ;;
         esac
     done 
 else
-    select choice in "Back To Another Table" "Add New Record" "Back To Another Database" "Back To Main Menu" "Exit the Application" 
+    select choice in "Add New Record" "Back" "Back To Main Menu" "Exit the Application" 
     do
        case $REPLY in
-        1). ./ListSpecificTable.sh
+        1). ./InsertIntoTable.sh
           ;;
-        2). ./InsertIntoTable.sh
+        2). ./ListSpecificTable.sh yes
+          ;;  
+        3). ./MainMenu.sh
           ;;
-        3). ./OpenDatabase.sh
-          ;;
-        4). ./MainMenu.sh
-          ;;
-        5) exit
+        4) exit
           ;;
         *) echo "Invalid Selection 😱 Please Try again...!"
           ;;

@@ -20,8 +20,13 @@ db=`ls ./Databases | wc -l`
         echo "==========================================================="
         while true
         do
+          if [ "$1" == "yes" ]
+          then
+            dbname = $dbname
+          else
             echo "please Enter the Database Name of the Database you want to open"
             read dbname
+          fi  
                #check the name format
                if [[ ! "$dbname" =~  ^[[:alpha:]][[:alnum:]]*$  ]] 
                then
@@ -50,20 +55,22 @@ echo "Please Enter the choice you want to do in this Database From the Following
 
 if [ ! "$db" == 0 ]
 then
-    select choice in "Create New Table" "Delete Specific Table" "List Specific Table" "List All Available Database Tables" "Back To Main Menu" "Exit the Application"
+    select choice in "Create New Table" "Delete Specific Table" "List Specific Table" "List All Available Database Tables" "Back To Choose Another DB" "Back To Main Menu" "Exit the Application"
     do
        case $REPLY in
        1) . ./CreateTable.sh
             ;;
        2) . ./DeleteTable.sh
             ;;
-       3) . ./ListSpecificTable.sh
+       3) . ./ListSpecificTable.sh no
             ;;
        4) . ./ListTables.sh
             ;;
-       5) . ./MainMenu.sh
+       5) . ./OpenDatabase.sh no  
             ;;
-       6)    exit
+       6) . ./MainMenu.sh  
+            ;;
+       7)    exit
             ;;
        *)  echo "Invalid Selection 😱 Please Try again...!"
             ;;
@@ -73,7 +80,7 @@ else
       select choice in "Back To Main Menu" "Exit the Application" 
       do
           case $REPLY in
-            1). ./MainMenu.sh
+            1). ./MainMenu.sh  
                   ;;
             2) exit
                   ;;

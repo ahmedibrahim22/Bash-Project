@@ -67,7 +67,7 @@ cat ./Databases/"$dbname"/"$tablename"
 echo "==========================================================="
 echo "please select your next action from the following actions"
 PS3="Enter Your Choice:~$ "
-select choice in "Add another Record" "Delete Record" "Update Into Table" "Back To Another Table" "Back To Another Database" "Back To Main Menu" "Exit the Application" 
+select choice in "Add another Record" "Delete Record" "Update Into Table" "Back" "Back To Main Menu" "Exit the Application" 
 do
    case $REPLY in
     1). ./InsertIntoTable.sh
@@ -76,13 +76,11 @@ do
        ;;
     3) . ./UpdateRecord.sh 
        ;;
-    4). ./ListSpecificTable.sh
+    4). ./ListSpecificTable.sh yes
+       ;;   
+    5). ./MainMenu.sh
        ;;
-    5). ./OpenDatabase.sh
-       ;;
-    6). ./MainMenu.sh
-       ;;
-    7) exit
+    6) exit
        ;;
     *) echo "Invalid Selection 😱 Please Try again...!"
        ;;

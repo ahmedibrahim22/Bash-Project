@@ -18,13 +18,13 @@ echo "Please Enter Your choice From the Following Choices"
 select choice in "Create New Database" "Delete Database" "Open Specific Database" "List All Available Databases" "Exit the Application"
 do
     case $REPLY in
-    1) . ./CreateDatabase.sh
+    1) . ./CreateDatabase.sh 
             ;;
-    2) . ./DeleteDatabase.sh
+    2) . ./DeleteDatabase.sh 
             ;;
-    3) . ./OpenDatabase.sh
+    3) . ./OpenDatabase.sh no 
             ;;
-    4) . ./ListDatabases.sh
+    4) . ./ListDatabases.sh  
             ;;
     5)    exit
             ;;

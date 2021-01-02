@@ -15,8 +15,13 @@ tb=`ls ./Databases/$dbname | wc -l`
         echo "==========================================================="
         while true
         do
+          if [ "$1" == "yes" ]
+          then
+            tablename = $tablename
+          else
             echo "please Enter the Table Name of the Table you want to List "
             read tablename
+          fi  
                if [[ ! "$tablename" =~  ^[[:alpha:]][[:alnum:]]*$  ]] 
                then
                 echo "Error with Naming Format of Table Name" 
@@ -44,7 +49,7 @@ echo "Please Enter the choice you want to do in this Database From the Following
 PS3="Enter Your Choice:~$ "
 if [ ! "$tb" == 0 ]
 then
-        select choice in "Insert Into Table" "Delete From Table" "Update Into Table" "Back To Main Menu" "Exit the Application"
+        select choice in "Insert Into Table" "Delete From Table" "Update Into Table" "Back To Another Table" "Back To Another Database" "Back To Main Menu" "Exit the Application"
         do
         case $REPLY in
         1) . ./InsertIntoTable.sh
@@ -52,24 +57,32 @@ then
         2) . ./DeleteFromTable.sh
                 ;;
         3) . ./UpdateRecord.sh 
-            ;;
-        4) . ./MainMenu.sh
                 ;;
-        5)    exit
+        4). ./ListSpecificTable.sh no
+                ;;
+        5). ./OpenDatabase.sh no
+                ;;
+        6) . ./MainMenu.sh
+                ;;
+        7)    exit
                 ;;
         *)  echo "Invalid Selection  Please Try again...!"
                 ;;
         esac
     done
 else
-     select choice in "Back To Main Menu" "Exit the Application" 
+       select choice in "Back" "Back To Choose Another DB" "Back To Main Menu" "Exit the Application" 
       do
           case $REPLY in
-            1). ./MainMenu.sh
+            1). ./OpenDatabase.sh yes
                   ;;
-            2) exit
+            2) . ./OpenDatabase.sh no  
+            ;;
+            3). ./MainMenu.sh
+                  ;;      
+            4) exit
                   ;;
-            *) echo "Invalid Selection * Please Try again...!"
+            *) echo "Invalid Selection 😱 Please Try again...!"
                   ;;
           esac
       done
