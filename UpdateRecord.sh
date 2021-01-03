@@ -7,7 +7,7 @@ tb=`cat ./Databases/$dbname/$tablename | wc -l`
 
 if [ "$tb" == 2 ]
 then
-        echo "Unfortunately, There are no Rows in this table*"
+        echo "Unfortunately, There are no Rows in this table 😞"
 
 else
     echo "Table: ""$tablename"
@@ -37,17 +37,17 @@ record_num=$counter
 
        if [[ ! "$val_prim" =~  ^[1-9][0-9]*$ ]]
        then
-           echo "please enter valid number "
+           echo "please enter valid number 👊"
         elif [ $chk == 0 ]
         then
-            echo "this primary key not exist" 
+            echo "this primary key not exist 👊" 
         else
             break
         fi
  done
 
 #list all columns to choose
-echo "Available columns "
+echo "Available data of the enterd primary key in columns are"
     typeset -i ci=2
     for col in `awk -F: '{i=2; while(i<=NF){if(NR=='$counter'){print $i};i++}}' ./Databases/$dbname/$tablename`
     do
@@ -58,7 +58,7 @@ echo "Available columns "
 
     while true
     do
-       echo  "Choose Column Need To Update "
+       echo  "Choose the number of Column that corrosponding to the field value you want to Update "
         read option
 
         #check option exist in array
@@ -73,10 +73,10 @@ echo "Available columns "
 
         if [[ ! $option =~  ^[1-9][0-9]*$  ]]
         then
-                echo "please enter valid number"
+                echo "please enter valid number 👊"
         elif [ $found == 0 ]
         then
-            echo "This Option Not Exist . try again"
+            echo "This Option Not Exist . try again 👊"
         else
             break  
         fi
@@ -96,7 +96,7 @@ echo "Available columns "
         
             if [[ ! "$new" =~  ^[[:alpha:]][[:alnum:]]*$  ]] 
             then
-                    echo Error in Naming Format of Column 
+                    echo Error in Naming Format it should be string 
                     echo Must start with letter 
                     echo Contain no spaces 
                     echo Only AlphaNumeric is Allowed
@@ -108,7 +108,7 @@ echo "Available columns "
     
            if [[ ! $new =~  ^[1-9][0-9]*$  ]]
             then
-                    echo "please enter valid number"
+                    echo "please enter valid number 👊"
             else
                     break
             fi 
@@ -117,7 +117,7 @@ echo "Available columns "
         fi   
     done
         awk -F : -i inplace -v OFS=: -v ident="$val_prim" -v insert="$new" -v op="$option" '($1==ident){$op=insert} 1' ./Databases/$dbname/$tablename
-        echo "congratulations, Your Have Updated Record Successfully "
+        echo "congratulations, Your Have Updated Record Successfully 😀"
 
         echo "new data after update"
         cat ./Databases/$dbname/$tablename
@@ -145,7 +145,7 @@ then
         ;;
         6) exit
         ;;
-        *) echo "Invalid Selection * Please Try again...!"
+        *) echo "Invalid Selection 😱 Please Try again...!"
         ;;
         esac
     done 
