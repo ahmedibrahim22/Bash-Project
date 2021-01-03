@@ -32,7 +32,7 @@ tb=`ls ./Databases/$dbname | wc -l`
                      ls ./Databases/$dbname | awk '{print NR, "-", $0}'
                    break
                else
-                   clear
+                   
                    echo "The Name you enterd does't match any existing Table 👊"
                fi
         done
