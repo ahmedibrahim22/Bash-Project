@@ -31,7 +31,6 @@ tb=`ls ./Databases/$dbname | wc -l`
 
                elif [  -f ./Databases/$dbname/"$tablename" ]
                then
-                   clear
                    echo "Table: ""$tablename"
                    cat ./Databases/$dbname/"$tablename"
                    break
