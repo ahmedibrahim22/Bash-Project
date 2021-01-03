@@ -3,6 +3,7 @@ clear
 
 echo "Table: ""$tablename"
 cat ./Databases/"$dbname"/"$tablename"
+check=`cat ./Databases/"$dbname"/"$tablename"| wc -l`
 echo "======================================================================="
 
 NoOfRecords=`awk -F: 'END {print NR}' ./Databases/"$dbname"/"$tablename"`
@@ -36,16 +37,26 @@ else
      fi
         ((counter=counter+1)) 
    done
+
+   #check if this primary key exist or not
    clear
-  echo "congratulations, Your Record has been deleted successfully 😀"
+   check2=`cat ./Databases/"$dbname"/"$tablename"| wc -l`
+   if [ $check -gt $check2 ]
+   then
+    echo "congratulations, Your Record has been deleted successfully 😀"
+   else
+    echo "Unfortunately, This record doesn't exist 😞"
+   fi
 fi
+
+
 
 echo "========================================================================"
 
 if [ ! $NoOfRecords == 2 ]
 then
  #printing the table after the deleting operation
-  echo "Your Table After Your deleting operaion become as following"
+  echo "Your Table After Your this operaion become as following"
   cat ./Databases/"$dbname"/"$tablename"
 
   echo "======================================================================="

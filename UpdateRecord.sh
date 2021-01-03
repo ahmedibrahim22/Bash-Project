@@ -18,23 +18,40 @@ else
     do
        echo  "Enter the value of primary key of the row you want to modify"
         read val_prim
-       ((new_tb=tb-2))
+        counter=3
+        chk=0
+     #check if primary key exist
+     if [[ "$val_prim" =~  ^[1-9][0-9]*$ ]]
+     then
+        while [ $counter -le $tb ]
+        do
+            if  [ $val_prim -eq `awk -F: 'FNR == '$counter' {print $1}' ./Databases/$dbname/$tablename` ]
+            then
+            chk=1
+           break
+            fi
+            ((counter=counter+1)) 
+        done
+     fi
+record_num=$counter
+
        if [[ ! "$val_prim" =~  ^[1-9][0-9]*$ ]]
        then
            echo "please enter valid number "
-        elif [[ $val_prim -gt $new_tb ]]  
+        elif [ $chk == 0 ]
         then
-            echo "this primary key not exist"      
+            echo "this primary key not exist" 
         else
-                break
+            break
         fi
-    done
+ done
 
 #list all columns to choose
+echo "Available columns "
     typeset -i ci=2
-    for col in `awk -F: '{i=2; while(i<=NF){if(NR==2){print $i};i++}}' ./Databases/$dbname/$tablename`
+    for col in `awk -F: '{i=2; while(i<=NF){if(NR=='$counter'){print $i};i++}}' ./Databases/$dbname/$tablename`
     do
-    echo $ci ")" $col
+    echo $ci")" $col
     arr[ci]=$ci
     ci=ci+1
     done
@@ -89,11 +106,7 @@ else
         elif [[ $type_select == "Integer" ]]  
         then
     
-            if [ -z $new ]
-            then
-                echo Choosen Number Cannot be Null
-
-            elif [[ ! $new =~  ^[1-9][0-9]*$  ]]
+           if [[ ! $new =~  ^[1-9][0-9]*$  ]]
             then
                     echo "please enter valid number"
             else
