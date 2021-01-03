@@ -139,6 +139,7 @@ do
                   echo "congratulations, Your Table Added successfully 😀"
                   echo "your available tables after your adding operation become as following"
                   ls ./Databases/$dbname | awk '{print NR, "-", $0}'
+                  unset column
                    break
         fi
 done
